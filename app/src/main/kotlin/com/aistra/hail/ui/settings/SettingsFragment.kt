@@ -10,7 +10,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -86,213 +85,215 @@ class SettingsFragment : MainFragment(), MenuProvider {
     @Composable
     private fun SettingsScreen() {
         val autoFreezeAfterLock = rememberPreferenceState(HailData.AUTO_FREEZE_AFTER_LOCK, false)
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            listPreference(
-                key = HailData.WORKING_MODE,
-                defaultValue = HailData.MODE_DEFAULT,
-                onValueChange = ::onWorkingModeChange,
-                values = HailData.WORKING_MODE_VALUES,
-                entriesId = R.array.working_mode_entries,
-                titleId = R.string.working_mode,
-                icon = Icons.Outlined.Adb,
-                type = ListPreferenceType.ALERT_DIALOG
-            )
-            switchPreference(
-                key = HailData.BIOMETRIC_LOGIN,
-                defaultValue = false,
-                onValueChange = { _, value ->
-                    if (value) resetDynamicShortcuts()
-                    true
-                },
-                titleId = R.string.action_biometric,
-                icon = Icons.Outlined.Fingerprint
-            )
-            horizontalDivider()
-            preferenceCategory(key = "customize", title = { Text(text = stringResource(R.string.title_customize)) })
-            listPreference(
-                key = HailData.APP_THEME,
-                defaultValue = HailData.FOLLOW_SYSTEM,
-                onValueChange = { _, value ->
-                    app.setAppTheme(value)
-                    true
-                },
-                values = HailData.APP_THEME_VALUES,
-                entriesId = R.array.app_theme_entries,
-                titleId = R.string.app_theme,
-                icon = Icons.Outlined.DarkMode
-            )
-            listPreference(
-                key = HailData.ICON_PACK,
-                defaultValue = HailData.ACTION_NONE,
-                onValueChange = { _, _ ->
-                    AppIconCache.clear()
-                    true
-                },
-                values = mutableListOf(HailData.ACTION_NONE).apply {
-                    addAll(Intent(Intent.ACTION_MAIN).addCategory("com.anddoes.launcher.THEME").let {
-                        if (HTarget.T) app.packageManager.queryIntentActivities(
-                            it, PackageManager.ResolveInfoFlags.of(0)
-                        ) else app.packageManager.queryIntentActivities(it, 0)
-                    }.map { it.activityInfo.packageName })
-                },
-                titleId = R.string.icon_pack,
-                icon = Icons.Outlined.Palette,
-                summary = { iconPackName(it) },
-                valueToText = ::iconPackName
-            )
-            switchPreference(
-                key = HailData.GRAYSCALE_ICON,
-                defaultValue = true,
-                titleId = R.string.grayscale_icon,
-                icon = Icons.Outlined.FilterBAndW
-            )
-            switchPreference(
-                key = HailData.COMPACT_ICON,
-                defaultValue = false,
-                titleId = R.string.compact_icon,
-                icon = Icons.Outlined.Apps
-            )
-            switchPreference(
-                key = HailData.SYNTHESIZE_ADAPTIVE_ICONS,
-                defaultValue = false,
-                titleId = R.string.synthesize_adaptive_icons,
-                icon = Icons.Outlined.Layers
-            )
-            sliderPreference(
-                key = HailData.HOME_FONT_SIZE,
-                defaultValue = 14f,
-                title = { Text(text = stringResource(R.string.home_font_size)) },
-                valueRange = 11f..16f,
-                valueSteps = 4,
-                icon = { Icon(imageVector = Icons.Outlined.TextFields, contentDescription = null) },
-                valueText = { Text(text = "%.0f".format(it)) },
-            )
-            switchPreference(
-                key = HailData.FUZZY_SEARCH,
-                defaultValue = false,
-                titleId = R.string.fuzzy_search,
-                icon = Icons.AutoMirrored.Outlined.ManageSearch
-            )
-            switchPreference(
-                key = HailData.NINE_KEY_SEARCH,
-                defaultValue = false,
-                titleId = R.string.nine_key,
-                icon = Icons.Outlined.Dialpad
-            )
-            listPreference(
-                key = HailData.TILE_ACTION,
-                defaultValue = HailData.tileAction,
-                values = HailData.TILE_ACTION_VALUES,
-                entriesId = R.array.tile_action_entries,
-                titleId = R.string.tile_action,
-                icon = Icons.Outlined.DashboardCustomize
-            )
-            horizontalDivider()
-            preferenceCategory(key = "auto_freeze", title = { Text(text = stringResource(R.string.auto_freeze)) })
-            switchPreference(
-                rememberState = { autoFreezeAfterLock },
-                onValueChange = { _, value ->
-                    app.setAutoFreezeService(value)
-                    true
-                },
-                titleId = R.string.auto_freeze_after_lock,
-                icon = Icons.Outlined.ScreenLockPortrait
-            )
-            sliderPreference(
-                key = HailData.AUTO_FREEZE_DELAY,
-                defaultValue = 0f,
-                title = { Text(text = stringResource(R.string.auto_freeze_delay)) },
-                valueRange = 0f..30f,
-                valueSteps = 29,
-                enabled = { autoFreezeAfterLock.value },
-                icon = { Icon(imageVector = Icons.Outlined.LockClock, contentDescription = null) },
-                valueText = { Text(text = "%.0f".format(it)) },
-            )
-            switchPreference(
-                key = HailData.SKIP_WHILE_CHARGING,
-                defaultValue = false,
-                titleId = R.string.skip_while_charging,
-                enabled = autoFreezeAfterLock.value,
-                icon = Icons.Outlined.BatteryChargingFull
-            )
-            switchPreference(
-                key = HailData.SKIP_FOREGROUND_APP,
-                defaultValue = false,
-                onValueChange = { _, value ->
-                    if (value && !HSystem.checkOpUsageStats(requireContext())) {
-                        startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-                        false
-                    } else true
-                },
-                titleId = R.string.skip_foreground_app,
-                enabled = autoFreezeAfterLock.value,
-                icon = Icons.Outlined.Android
-            )
-            switchPreference(
-                key = HailData.SKIP_NOTIFYING_APP,
-                defaultValue = false,
-                onValueChange = { _, value ->
-                    val isGranted = NotificationManagerCompat.getEnabledListenerPackages(requireContext())
-                        .contains(requireContext().packageName)
-                    if (value && !isGranted) {
-                        app.setAutoFreezeServiceEnabled(true)
-                        startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-                        false
-                    } else true
-                },
-                titleId = R.string.skip_notifying_app,
-                enabled = autoFreezeAfterLock.value,
-                icon = Icons.Outlined.NotificationsActive
-            )
-            horizontalDivider()
-            preferenceCategory(key = "shortcuts", title = { Text(text = stringResource(R.string.title_shortcuts)) })
-            preference(
-                key = "add_pin_shortcut",
-                title = { Text(text = stringResource(R.string.action_add_pin_shortcut)) },
-                icon = { Icon(imageVector = Icons.AutoMirrored.Outlined.Shortcut, contentDescription = null) },
-                onClick = ::addPinShortcut
-            )
-            listPreference(
-                key = HailData.DYNAMIC_SHORTCUT_ACTION,
-                defaultValue = HailData.ACTION_NONE,
-                onValueChange = { _, action ->
-                    HShortcuts.removeAllDynamicShortcuts()
-                    HShortcuts.addDynamicShortcutAction(action)
-                    true
-                },
-                values = HailData.DYNAMIC_SHORTCUT_ACTIONS,
-                entriesId = R.array.dynamic_shortcut_entries,
-                titleId = R.string.dynamic_shortcut_action,
-                icon = Icons.Outlined.AppShortcut
-            )
-            preference(
-                key = "clear_dynamic_shortcuts",
-                title = { Text(text = stringResource(R.string.action_clear_dynamic_shortcuts)) },
-                icon = { Icon(imageVector = Icons.Outlined.CleaningServices, contentDescription = null) },
-                onClick = ::resetDynamicShortcuts
-            )
-            horizontalDivider()
-            preferenceCategory(key = "app_info", title = { Text(text = stringResource(R.string.app_name)) })
-            preference(
-                key = "app_version",
-                title = { Text(text = stringResource(R.string.label_version)) },
-                summary = { Text(text = HailData.VERSION) },
-                icon = { Icon(imageVector = Icons.Outlined.Info, contentDescription = null) },
-                onClick = { HUI.copyText(HailData.VERSION) }
-            )
-            preference(
-                key = "source_code",
-                title = { Text(text = stringResource(R.string.action_github)) },
-                summary = { Text(text = "Hail · GPL-3.0") },
-                icon = { Icon(imageVector = Icons.Outlined.Code, contentDescription = null) },
-                onClick = { HUI.openLink(HailData.URL_GITHUB) }
-            )
-            preference(
-                key = "open_source_licenses",
-                title = { Text(text = stringResource(R.string.action_licenses)) },
-                icon = { Icon(imageVector = Icons.Outlined.Description, contentDescription = null) },
-                onClick = ::showLicenses
-            )
+        ProvideSettingsMenus { menuModifier ->
+            LazyColumn(modifier = menuModifier) {
+                listPreference(
+                    key = HailData.WORKING_MODE,
+                    defaultValue = HailData.MODE_DEFAULT,
+                    onValueChange = ::onWorkingModeChange,
+                    values = HailData.WORKING_MODE_VALUES,
+                    entriesId = R.array.working_mode_entries,
+                    titleId = R.string.working_mode,
+                    icon = Icons.Outlined.Adb,
+                    type = ListPreferenceType.ALERT_DIALOG
+                )
+                switchPreference(
+                    key = HailData.BIOMETRIC_LOGIN,
+                    defaultValue = false,
+                    onValueChange = { _, value ->
+                        if (value) resetDynamicShortcuts()
+                        true
+                    },
+                    titleId = R.string.action_biometric,
+                    icon = Icons.Outlined.Fingerprint
+                )
+                horizontalDivider()
+                preferenceCategory(key = "customize", title = { Text(text = stringResource(R.string.title_customize)) })
+                listPreference(
+                    key = HailData.APP_THEME,
+                    defaultValue = HailData.FOLLOW_SYSTEM,
+                    onValueChange = { _, value ->
+                        app.setAppTheme(value)
+                        true
+                    },
+                    values = HailData.APP_THEME_VALUES,
+                    entriesId = R.array.app_theme_entries,
+                    titleId = R.string.app_theme,
+                    icon = Icons.Outlined.DarkMode
+                )
+                listPreference(
+                    key = HailData.ICON_PACK,
+                    defaultValue = HailData.ACTION_NONE,
+                    onValueChange = { _, _ ->
+                        AppIconCache.clear()
+                        true
+                    },
+                    values = mutableListOf(HailData.ACTION_NONE).apply {
+                        addAll(Intent(Intent.ACTION_MAIN).addCategory("com.anddoes.launcher.THEME").let {
+                            if (HTarget.T) app.packageManager.queryIntentActivities(
+                                it, PackageManager.ResolveInfoFlags.of(0)
+                            ) else app.packageManager.queryIntentActivities(it, 0)
+                        }.map { it.activityInfo.packageName })
+                    },
+                    titleId = R.string.icon_pack,
+                    icon = Icons.Outlined.Palette,
+                    summary = { iconPackName(it) },
+                    valueToText = ::iconPackName
+                )
+                switchPreference(
+                    key = HailData.GRAYSCALE_ICON,
+                    defaultValue = true,
+                    titleId = R.string.grayscale_icon,
+                    icon = Icons.Outlined.FilterBAndW
+                )
+                switchPreference(
+                    key = HailData.COMPACT_ICON,
+                    defaultValue = false,
+                    titleId = R.string.compact_icon,
+                    icon = Icons.Outlined.Apps
+                )
+                switchPreference(
+                    key = HailData.SYNTHESIZE_ADAPTIVE_ICONS,
+                    defaultValue = false,
+                    titleId = R.string.synthesize_adaptive_icons,
+                    icon = Icons.Outlined.Layers
+                )
+                sliderPreference(
+                    key = HailData.HOME_FONT_SIZE,
+                    defaultValue = 14f,
+                    title = { Text(text = stringResource(R.string.home_font_size)) },
+                    valueRange = 11f..16f,
+                    valueSteps = 4,
+                    icon = { Icon(imageVector = Icons.Outlined.TextFields, contentDescription = null) },
+                    valueText = { Text(text = "%.0f".format(it)) },
+                )
+                switchPreference(
+                    key = HailData.FUZZY_SEARCH,
+                    defaultValue = false,
+                    titleId = R.string.fuzzy_search,
+                    icon = Icons.AutoMirrored.Outlined.ManageSearch
+                )
+                switchPreference(
+                    key = HailData.NINE_KEY_SEARCH,
+                    defaultValue = false,
+                    titleId = R.string.nine_key,
+                    icon = Icons.Outlined.Dialpad
+                )
+                listPreference(
+                    key = HailData.TILE_ACTION,
+                    defaultValue = HailData.tileAction,
+                    values = HailData.TILE_ACTION_VALUES,
+                    entriesId = R.array.tile_action_entries,
+                    titleId = R.string.tile_action,
+                    icon = Icons.Outlined.DashboardCustomize
+                )
+                horizontalDivider()
+                preferenceCategory(key = "auto_freeze", title = { Text(text = stringResource(R.string.auto_freeze)) })
+                switchPreference(
+                    rememberState = { autoFreezeAfterLock },
+                    onValueChange = { _, value ->
+                        app.setAutoFreezeService(value)
+                        true
+                    },
+                    titleId = R.string.auto_freeze_after_lock,
+                    icon = Icons.Outlined.ScreenLockPortrait
+                )
+                sliderPreference(
+                    key = HailData.AUTO_FREEZE_DELAY,
+                    defaultValue = 0f,
+                    title = { Text(text = stringResource(R.string.auto_freeze_delay)) },
+                    valueRange = 0f..30f,
+                    valueSteps = 29,
+                    enabled = { autoFreezeAfterLock.value },
+                    icon = { Icon(imageVector = Icons.Outlined.LockClock, contentDescription = null) },
+                    valueText = { Text(text = "%.0f".format(it)) },
+                )
+                switchPreference(
+                    key = HailData.SKIP_WHILE_CHARGING,
+                    defaultValue = false,
+                    titleId = R.string.skip_while_charging,
+                    enabled = autoFreezeAfterLock.value,
+                    icon = Icons.Outlined.BatteryChargingFull
+                )
+                switchPreference(
+                    key = HailData.SKIP_FOREGROUND_APP,
+                    defaultValue = false,
+                    onValueChange = { _, value ->
+                        if (value && !HSystem.checkOpUsageStats(requireContext())) {
+                            startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                            false
+                        } else true
+                    },
+                    titleId = R.string.skip_foreground_app,
+                    enabled = autoFreezeAfterLock.value,
+                    icon = Icons.Outlined.Android
+                )
+                switchPreference(
+                    key = HailData.SKIP_NOTIFYING_APP,
+                    defaultValue = false,
+                    onValueChange = { _, value ->
+                        val isGranted = NotificationManagerCompat.getEnabledListenerPackages(requireContext())
+                            .contains(requireContext().packageName)
+                        if (value && !isGranted) {
+                            app.setAutoFreezeServiceEnabled(true)
+                            startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                            false
+                        } else true
+                    },
+                    titleId = R.string.skip_notifying_app,
+                    enabled = autoFreezeAfterLock.value,
+                    icon = Icons.Outlined.NotificationsActive
+                )
+                horizontalDivider()
+                preferenceCategory(key = "shortcuts", title = { Text(text = stringResource(R.string.title_shortcuts)) })
+                preference(
+                    key = "add_pin_shortcut",
+                    title = { Text(text = stringResource(R.string.action_add_pin_shortcut)) },
+                    icon = { Icon(imageVector = Icons.AutoMirrored.Outlined.Shortcut, contentDescription = null) },
+                    onClick = ::addPinShortcut
+                )
+                listPreference(
+                    key = HailData.DYNAMIC_SHORTCUT_ACTION,
+                    defaultValue = HailData.ACTION_NONE,
+                    onValueChange = { _, action ->
+                        HShortcuts.removeAllDynamicShortcuts()
+                        HShortcuts.addDynamicShortcutAction(action)
+                        true
+                    },
+                    values = HailData.DYNAMIC_SHORTCUT_ACTIONS,
+                    entriesId = R.array.dynamic_shortcut_entries,
+                    titleId = R.string.dynamic_shortcut_action,
+                    icon = Icons.Outlined.AppShortcut
+                )
+                preference(
+                    key = "clear_dynamic_shortcuts",
+                    title = { Text(text = stringResource(R.string.action_clear_dynamic_shortcuts)) },
+                    icon = { Icon(imageVector = Icons.Outlined.CleaningServices, contentDescription = null) },
+                    onClick = ::resetDynamicShortcuts
+                )
+                horizontalDivider()
+                preferenceCategory(key = "app_info", title = { Text(text = stringResource(R.string.app_name)) })
+                preference(
+                    key = "app_version",
+                    title = { Text(text = stringResource(R.string.label_version)) },
+                    summary = { Text(text = HailData.VERSION) },
+                    icon = { Icon(imageVector = Icons.Outlined.Info, contentDescription = null) },
+                    onClick = { HUI.copyText(HailData.VERSION) }
+                )
+                preference(
+                    key = "source_code",
+                    title = { Text(text = stringResource(R.string.action_github)) },
+                    summary = { Text(text = "Hail · GPL-3.0") },
+                    icon = { Icon(imageVector = Icons.Outlined.Code, contentDescription = null) },
+                    onClick = { HUI.openLink(HailData.URL_GITHUB) }
+                )
+                preference(
+                    key = "open_source_licenses",
+                    title = { Text(text = stringResource(R.string.action_licenses)) },
+                    icon = { Icon(imageVector = Icons.Outlined.Description, contentDescription = null) },
+                    onClick = ::showLicenses
+                )
+            }
         }
     }
 
@@ -357,6 +358,7 @@ class SettingsFragment : MainFragment(), MenuProvider {
         val state = rememberPreferenceState(key, defaultValue)
         if (type == ListPreferenceType.DROPDOWN_MENU) {
             AnchoredListPreference(
+                key = key,
                 value = state.value,
                 onValueChange = { if (onValueChange(state, it)) state.value = it },
                 values = values,

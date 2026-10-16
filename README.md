@@ -9,7 +9,7 @@ Graupel is an independently installable variant of [Hail](https://github.com/ais
 - Separate application ID: `io.github.localbuild.graupel`; can coexist with Hail.
 - Day and night launcher icons follow the system theme. The installer uses the original daytime icon.
 - Three navigation tabs, with version, source and license information in Settings.
-- Bounded settings ripple and row-width selection menus with vertical expansion and measured screen positioning.
+- Bounded settings ripple and row-width selection menus that expand inline below the clicked row.
 - No links to official Hail release/update distribution channels in the app.
 
 For freezing modes, permissions and usage, see the [upstream documentation](https://github.com/aistra0528/Hail#readme).
