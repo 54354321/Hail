@@ -50,8 +50,8 @@
     <string name="filter_frozen_apps">Dibekukan</string>
     <string name="filter_unfrozen_apps">Diaktifkan</string>
     <string name="msg_set_owner">Jalankan perintah dari adb: \n%s</string>
-    <string name="msg_remove_owner">Saat Hail sebagai pemilik perangkat dihapus, akan ada kesulitan mengatur kembali Aplikasi yang dibekukan.
-\nAplikasi yang dibekukan akan tetap beku setelah Hail dihapus, pastikan telah mengaktifkannya terlebih dahulu.</string>
+    <string name="msg_remove_owner">Saat Graupel sebagai pemilik perangkat dihapus, akan ada kesulitan mengatur kembali Aplikasi yang dibekukan.
+\nAplikasi yang dibekukan akan tetap beku setelah Graupel dihapus, pastikan telah mengaktifkannya terlebih dahulu.</string>
     <string name="title_remove_owner">Hapus Pemilik Perangkat</string>
     <string name="filter_system_apps">Sistem</string>
     <string name="sort_name">Nama</string>
@@ -92,7 +92,7 @@
     <string name="action_remove_whitelist">Hapus dari daftar putih</string>
     <string name="action_import_frozen">Impor aplikasi dibekukan</string>
     <string name="auto_freeze_delay">Tunda bekukan (menit)</string>
-    <string name="app_name">Hail</string>
+    <string name="app_name">Graupel</string>
     <string name="action_deselect">Batalkan pilihan</string>
     <string name="nothing_here">Tidak ada apa-apa di sini</string>
     <string name="action_whitelist">Tambah ke daftar putih</string>

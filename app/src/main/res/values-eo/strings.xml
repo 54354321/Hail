@@ -15,7 +15,7 @@
     <string name="action_freeze_current">Frostigi videbla</string>
     <string name="action_unfreeze_current">Malfrostigi videbla</string>
     <string name="action_freeze_non_whitelisted">Frostigi ne-blanklista</string>
-    <string name="app_name">Hail</string>
+    <string name="app_name">Graupel</string>
     <string name="title_settings">Agordo</string>
     <string name="label_default">Defaŭlto</string>
     <string name="action_qq">QQ Grupo</string>
@@ -78,7 +78,7 @@
     <string name="operation_failed">Operacio malsukcesis: %s</string>
     <string name="msg_selected">Elektita: %s</string>
     <string name="msg_set_owner">Eldonu la komandon el adb:\n%s</string>
-    <string name="msg_remove_owner">Se Hail estos forigita kiel la aparata posedanto, povus esti malfacilaĵoj reorganizi aplikaĵojn post forigo de Hail.\nFrostigitaj aplikaĵoj restos frostigitaj post forigo; bonvolu certigi, ke vi malfrostigis la gravajn aplikaĵojn.</string>
+    <string name="msg_remove_owner">Se Graupel estos forigita kiel la aparata posedanto, povus esti malfacilaĵoj reorganizi aplikaĵojn post forigo de Graupel.\nFrostigitaj aplikaĵoj restos frostigitaj post forigo; bonvolu certigi, ke vi malfrostigis la gravajn aplikaĵojn.</string>
     <string name="msg_exported">Elportita: %s</string>
     <string name="msg_imported">Enportita: %s</string>
     <string name="msg_text_copied">Kopiita: %s</string>

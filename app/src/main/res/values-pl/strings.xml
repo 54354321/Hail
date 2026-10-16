@@ -62,7 +62,7 @@
         <item quantity="many">%d minuty</item>
         <item quantity="other">%d minuty</item>
     </plurals>
-    <string name="app_name">Hail</string>
+    <string name="app_name">Graupel</string>
     <string name="title_home">Ekran główny</string>
     <string name="title_apps">Aplikacje</string>
     <string name="action_freeze_all">Zamroź wszystkie</string>
@@ -70,7 +70,7 @@
     <string name="action_lock">Zablokuj</string>
     <string name="action_undo">Cofnij</string>
     <string name="action_search">Szukaj</string>
-    <string name="msg_remove_owner">Jeśli Hail zostanie usunięte jako właściciel urządzenia, mogą wystąpić problemy przy reorganizacji aplikacji. \n\nZamrożone aplikacje pozostaną w takim stanie po usunięciu, proszę, upewnij się że ważne aplikacje są odmrożone.</string>
+    <string name="msg_remove_owner">Jeśli Graupel zostanie usunięte jako właściciel urządzenia, mogą wystąpić problemy przy reorganizacji aplikacji. \n\nZamrożone aplikacje pozostaną w takim stanie po usunięciu, proszę, upewnij się że ważne aplikacje są odmrożone.</string>
     <string name="filter_unfrozen_apps">Odmrożone</string>
     <string name="filter_frozen_apps">Zamrożone</string>
     <string name="donate_alipay">Alipay</string>

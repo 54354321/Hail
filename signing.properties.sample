@@ -1,4 +1,4 @@
-storeFile=filename.keystore
-storePassword=password
-keyAlias=alias
-keyPassword=password
+storeFile=../keystores/release.jks
+storePassword=REPLACE_WITH_STORE_PASSWORD
+keyAlias=REPLACE_WITH_KEY_ALIAS
+keyPassword=REPLACE_WITH_KEY_PASSWORD

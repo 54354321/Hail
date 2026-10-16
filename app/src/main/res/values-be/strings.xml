@@ -6,7 +6,7 @@
     <string name="title_about">Пра праграму</string>
     <string name="label_default">Стандартна</string>
     <string name="label_version">Версія</string>
-    <string name="app_name">Hail</string>
+    <string name="app_name">Graupel</string>
     <string name="title_home">Галоўны</string>
     <string name="label_time">Час усталявання</string>
     <string name="action_github">GitHub</string>
@@ -43,7 +43,7 @@
     <string name="action_uninstall">Выдаліць</string>
     <string name="working_mode">Працоўны рэжым</string>
     <string name="title_set_owner">Задаць уладальніка прылады</string>
-    <string name="msg_remove_owner">Калі Hail выдалены як уласнік прылады, пасля яго выдалення могуць узнікнуць складанасці з рэарганізацыяй праграм. \nЗамарожаныя праграмы застануцца замарожанымі пасля выдалення. Пераканайцеся, што вы размарозілі важныя праграмы.</string>
+    <string name="msg_remove_owner">Калі Graupel выдалены як уласнік прылады, пасля яго выдалення могуць узнікнуць складанасці з рэарганізацыяй праграм. \nЗамарожаныя праграмы застануцца замарожанымі пасля выдалення. Пераканайцеся, што вы размарозілі важныя праграмы.</string>
     <string name="filter_frozen_apps">Замарожаныя</string>
     <string name="action_unfreeze_remove_home">Размарозіць і выдаліць з галоўнай старонкі</string>
     <string name="action_deselect">Зняць вылучэнне</string>

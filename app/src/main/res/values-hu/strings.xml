@@ -3,7 +3,7 @@
     <string name="title_apps">Alkalmazások</string>
     <string name="title_settings">Beállítások</string>
     <string name="title_about">Névjegy</string>
-    <string name="app_name">Hail</string>
+    <string name="app_name">Graupel</string>
     <string name="app_slogan">Fagyasszunk!</string>
     <string name="title_home">Kezdőlap</string>
     <string name="action_telegram">Telegram csoport</string>
@@ -133,7 +133,7 @@
     <string name="title_customize">Testreszabás</string>
     <string name="auto_freeze_delay">Fagyasztási késleltetés (perc)</string>
     <string name="label_version">Verzió</string>
-    <string name="msg_remove_owner">Ha a Hail-t eszköztulajdonosként eltávolítja, előfordulhat, hogy ezt követően nehéz lesz újraszervezni az alkalmazásokat.\nA fagyasztott alkalmazások a Hali eltávolítása után is fagyasztva maradnak, ezért kérjük figyelje arra, hogy a fontos alkalmazások fagyasztását szüntesse meg.</string>
+    <string name="msg_remove_owner">Ha a Graupel-t eszköztulajdonosként eltávolítja, előfordulhat, hogy ezt követően nehéz lesz újraszervezni az alkalmazásokat.\nA fagyasztott alkalmazások a Hali eltávolítása után is fagyasztva maradnak, ezért kérjük figyelje arra, hogy a fontos alkalmazások fagyasztását szüntesse meg.</string>
     <string name="title_donate">Köszönöm!</string>
     <string name="permission_denied">Az engedély megtagadva</string>
     <string name="filter_user_apps">Felhasználó</string>

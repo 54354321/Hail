@@ -55,7 +55,7 @@
     <string name="nine_key">T9 Haku</string>
     <string name="action_reinstall">Asenna uudelleen</string>
     <string name="fuzzy_search">Sumea Haku</string>
-    <string name="app_name">Hail</string>
+    <string name="app_name">Graupel</string>
     <string name="title_home">Koti</string>
     <string name="label_version">Versio</string>
     <string name="label_time">Asennusaika</string>
@@ -81,7 +81,7 @@
 \n %s</string>
     <string name="mode_privapp_stop">Järjestelmäsovellus - Pakota Pysäytys</string>
     <string name="mode_privapp_disable">Järjestelmäsovellus - Poista Käytöstä</string>
-    <string name="msg_remove_owner">Jos Hail poistetaan laitteen omistajasta, sovellusten uudelleenjärjestelyssä Hail-poiston jälkeen voi olla vaikeuksia.
+    <string name="msg_remove_owner">Jos Graupel poistetaan laitteen omistajasta, sovellusten uudelleenjärjestelyssä Graupel-poiston jälkeen voi olla vaikeuksia.
 \n Jäädytetyt sovellukset pysyvät jäädytettyinä poistamisen jälkeen. Varmista, että olet purkanut tärkeät sovellukset.</string>
     <string name="filter_frozen_apps">Jäässä</string>
     <string name="filter_user_apps">Käyttäjä</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Hail</string>
-    <string name="msg_remove_owner">Se o Hail for removido como proprietário do dispositivo, poderá haver dificuldades para reorganizar os aplicativos após a remoção do Hail.
+    <string name="app_name">Graupel</string>
+    <string name="msg_remove_owner">Se o Graupel for removido como proprietário do dispositivo, poderá haver dificuldades para reorganizar os aplicativos após a remoção do Graupel.
 \nOs aplicativos congelados permanecerão congelados após a remoção. Certifique-se de descongelar os aplicativos importantes.</string>
     <string name="msg_freeze">Congelado: %s</string>
     <string name="action_whitelist">Adicionar à lista de permissões</string>

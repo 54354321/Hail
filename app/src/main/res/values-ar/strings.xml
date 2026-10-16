@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Hail</string>
-    <string name="msg_remove_owner">إذا تمت إزالة Hail كمالك للجهاز، فقد تكون هناك صعوبات في إعادة تنظيم التطبيقات بعد إزالة hail.
+    <string name="app_name">Graupel</string>
+    <string name="msg_remove_owner">إذا تمت إزالة Graupel كمالك للجهاز، فقد تكون هناك صعوبات في إعادة تنظيم التطبيقات بعد إزالة Graupel.
 \nستظل التطبيقات المجمدة مجمدة بعد إلغاء التثبيت، يرجى التأكد من إلغاء تجميد التطبيقات المهمة.</string>
     <string name="msg_freeze">مجمد: %s</string>
     <string name="action_whitelist">إضافة إلى القائمة البيضاء</string>

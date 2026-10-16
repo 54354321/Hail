@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Hail</string>
+    <string name="app_name">Graupel</string>
     <string name="app_slogan">¡Freezedom!</string>
     <string name="title_home">Inicio</string>
     <string name="title_apps">Aplicaciones</string>
@@ -48,7 +48,7 @@
     <string name="title_set_owner">Establecer como propietario del dispositivo</string>
     <string name="msg_set_owner">Ejecuta el comando desde adb:\n%s</string>
     <string name="title_remove_owner">Quitar como propietario del dispositivo</string>
-    <string name="msg_remove_owner">Si se quita a Hail como propietario del dispositivo, podrías tener dificultades para reorganizar las aplicaciones tras haberlo quitado. \nLas aplicaciones congeladas seguirán congeladas tras quitarlo; asegúrate de haber descongelado las importantes.</string>
+    <string name="msg_remove_owner">Si se quita a Graupel como propietario del dispositivo, podrías tener dificultades para reorganizar las aplicaciones tras haberlo quitado. \nLas aplicaciones congeladas seguirán congeladas tras quitarlo; asegúrate de haber descongelado las importantes.</string>
     <string name="tap_to_select">Toca para selección múltiple</string>
     <string name="filter_by">Filtro</string>
     <string name="filter_user_apps">Usuario</string>

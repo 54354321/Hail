@@ -9,20 +9,16 @@ android {
         workingDir = rootDir
         commandLine = "git rev-parse --short HEAD".split(" ")
     }.standardOutput.asText.get().trim()
-    val commitSubject = providers.exec {
-        workingDir = rootDir
-        commandLine = "git log -1 --pretty=%s".split(" ")
-    }.standardOutput.asText.get().trim()
 
     namespace = "com.aistra.hail"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.aistra.hail"
+        applicationId = "io.github.localbuild.graupel"
         minSdk = 23
         targetSdk = 36
-        versionCode = 35
-        versionName = "1.11.0"
+        versionCode = 7
+        versionName = "1.0.6"
     }
 
     buildTypes {
@@ -33,7 +29,7 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            if (!commitSubject.startsWith("[release]")) versionNameSuffix = "-g$commitHash"
+
             signingConfig = if (signingProps.exists()) {
                 val props = `java.util`.Properties().apply { load(signingProps.reader()) }
                 signingConfigs.create("release") {
@@ -42,7 +38,7 @@ android {
                     keyAlias = props.getProperty("keyAlias")
                     keyPassword = props.getProperty("keyPassword")
                 }
-            } else signingConfigs.getByName("debug")
+            } else null
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
@@ -67,7 +63,7 @@ androidComponents {
     onVariants { variant ->
         variant.outputs.forEach {
             if (it is com.android.build.api.variant.impl.VariantOutputImpl)
-                it.outputFileName = "Hail-v${it.versionName.get()}.apk"
+                it.outputFileName = "Graupel-v${it.versionName.get()}.apk"
         }
     }
 }
@@ -81,6 +77,7 @@ kotlin {
 }
 
 dependencies {
+    testImplementation("junit:junit:4.13.2")
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.material3)

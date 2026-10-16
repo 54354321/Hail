@@ -75,20 +75,20 @@ class ApiActivity : ComponentActivity() {
     /**
      * Handle schema actions
      *
-     * hail://launch?package=xxx
-     * hail://freeze?package=xxx
-     * hail://unfreeze?package=xxx
-     * hail://freeze_tag?tag=xxx
-     * hail://unfreeze_tag?tag=xxx
-     * hail://freeze_all
-     * hail://unfreeze_all
-     * hail://freeze_non_whitelisted
-     * hail://freeze_auto
-     * hail://lock
-     * hail://lock_freeze
+     * graupel://launch?package=xxx
+     * graupel://freeze?package=xxx
+     * graupel://unfreeze?package=xxx
+     * graupel://freeze_tag?tag=xxx
+     * graupel://unfreeze_tag?tag=xxx
+     * graupel://freeze_all
+     * graupel://unfreeze_all
+     * graupel://freeze_non_whitelisted
+     * graupel://freeze_auto
+     * graupel://lock
+     * graupel://lock_freeze
      */
     private fun handleSchema(uri: Uri?): Boolean {
-        if (uri?.scheme != "hail") throw IllegalArgumentException("Unknown scheme:\n${uri?.scheme}")
+        if (uri?.scheme != "graupel") throw IllegalArgumentException("Unknown scheme:\n${uri?.scheme}")
         return handleAction(
             when (uri.host) {
                 "launch" -> HailApi.ACTION_LAUNCH

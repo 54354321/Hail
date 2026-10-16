@@ -11,6 +11,7 @@ import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
@@ -20,8 +21,11 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.ComposeView
@@ -68,8 +72,11 @@ class SettingsFragment : MainFragment(), MenuProvider {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 AppTheme {
-                    ProvidePreferenceLocals {
-                        SettingsScreen()
+                    val rippleColor = MaterialTheme.colorScheme.onSurface
+                    CompositionLocalProvider(LocalIndication provides remember(rippleColor) { SettingsRipple(rippleColor) }) {
+                        ProvidePreferenceLocals {
+                            SettingsScreen()
+                        }
                     }
                 }
             }
@@ -264,6 +271,42 @@ class SettingsFragment : MainFragment(), MenuProvider {
                 icon = { Icon(imageVector = Icons.Outlined.CleaningServices, contentDescription = null) },
                 onClick = ::resetDynamicShortcuts
             )
+            horizontalDivider()
+            preferenceCategory(key = "app_info", title = { Text(text = stringResource(R.string.app_name)) })
+            preference(
+                key = "app_version",
+                title = { Text(text = stringResource(R.string.label_version)) },
+                summary = { Text(text = HailData.VERSION) },
+                icon = { Icon(imageVector = Icons.Outlined.Info, contentDescription = null) },
+                onClick = { HUI.copyText(HailData.VERSION) }
+            )
+            preference(
+                key = "source_code",
+                title = { Text(text = stringResource(R.string.action_github)) },
+                summary = { Text(text = "Hail · GPL-3.0") },
+                icon = { Icon(imageVector = Icons.Outlined.Code, contentDescription = null) },
+                onClick = { HUI.openLink(HailData.URL_GITHUB) }
+            )
+            preference(
+                key = "open_source_licenses",
+                title = { Text(text = stringResource(R.string.action_licenses)) },
+                icon = { Icon(imageVector = Icons.Outlined.Description, contentDescription = null) },
+                onClick = ::showLicenses
+            )
+        }
+    }
+
+    private fun showLicenses() {
+        val licenses = resources.openRawResource(R.raw.licenses).bufferedReader().use { it.readText() }
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.action_licenses)
+            .setMessage("Hail (GPL-3.0): ${HailData.URL_GITHUB}\n\n$licenses")
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
+        dialog.findViewById<android.widget.TextView>(android.R.id.message)?.apply {
+            setTextIsSelectable(true)
+            androidx.core.text.util.LinkifyCompat.addLinks(this, android.text.util.Linkify.WEB_URLS)
+            movementMethod = android.text.method.LinkMovementMethod.getInstance()
         }
     }
 
@@ -312,7 +355,17 @@ class SettingsFragment : MainFragment(), MenuProvider {
         valueToText: (String) -> String
     ) = item(key = key, contentType = "ListPreference") {
         val state = rememberPreferenceState(key, defaultValue)
-        ListPreference(
+        if (type == ListPreferenceType.DROPDOWN_MENU) {
+            AnchoredListPreference(
+                value = state.value,
+                onValueChange = { if (onValueChange(state, it)) state.value = it },
+                values = values,
+                title = { Text(text = stringResource(titleId)) },
+                icon = { Icon(imageVector = icon, contentDescription = null) },
+                summary = { Text(text = summary(state.value)) },
+                valueToText = valueToText,
+            )
+        } else ListPreference(
             value = state.value,
             onValueChange = { if (onValueChange(state, it)) state.value = it },
             values = values,

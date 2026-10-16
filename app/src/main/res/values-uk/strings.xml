@@ -43,7 +43,7 @@
     <string name="action_unpin">Відкріпити</string>
     <string name="action_whitelist">Додати до білого списку</string>
     <string name="activity_not_found">Активіті для запуску не знайдено</string>
-    <string name="app_name">Hail</string>
+    <string name="app_name">Graupel</string>
     <string name="app_not_installed">Застосунок не встановлено</string>
     <string name="app_slogan">Freezedom!</string>
     <string name="auto_freeze">Автозаморожування</string>
@@ -78,7 +78,7 @@
     <string name="msg_freeze">Заморожено: %s</string>
     <string name="msg_guide">Перед заморожуванням застосунків, виберіть робочий режим в налаштуваннях.</string>
     <string name="msg_imported">Імпортовано: %s</string>
-    <string name="msg_remove_owner">Якщо Hail видалено як власника пристрою, після його видалення можуть виникнути труднощі з реорганізацією застосунків.
+    <string name="msg_remove_owner">Якщо Graupel видалено як власника пристрою, після його видалення можуть виникнути труднощі з реорганізацією застосунків.
 \nЗаморожені застосунки залишаться замороженими після видалення, будь ласка, переконайтеся, що ви розморозили важливі застосунки.</string>
     <string name="msg_selected">Вибрано: %s</string>
     <string name="msg_set_owner">Введіть команду з adb:

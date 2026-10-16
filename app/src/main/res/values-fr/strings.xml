@@ -66,7 +66,7 @@
     <string name="msg_imported">Importée : %s</string>
     <string name="msg_text_copied">Copiée : %s</string>
     <string name="msg_extract_apk">Extraite vers : %s</string>
-    <string name="msg_remove_owner">Si Hail est supprimé en tant que propriétaire de l\'appareil, il peut y avoir des problèmes d\'organisation des applications après la désinstallation de Hail. \nLes applications gelées resteront gelées après la désinstallation, merci de vous assurer d\'avoir dégelé les applications importantes.</string>
+    <string name="msg_remove_owner">Si Graupel est supprimé en tant que propriétaire de l\'appareil, il peut y avoir des problèmes d\'organisation des applications après la désinstallation de Graupel. \nLes applications gelées resteront gelées après la désinstallation, merci de vous assurer d\'avoir dégelé les applications importantes.</string>
     <string name="synthesize_adaptive_icons">Synthétiser les icônes adaptatives</string>
     <string name="title_remove_owner">Retirer le propriétaire de l\'appareil</string>
     <string name="msg_unfreeze">Dégelée : %s</string>
@@ -128,7 +128,7 @@
     <string name="mode_shizuku_disable">Shizuku - Désactiver</string>
     <string name="activity_not_found">Aucune activité de démarrage</string>
     <string name="title_set_owner">Définir le propriétaire de l\'appareil</string>
-    <string name="app_name">Hail</string>
+    <string name="app_name">Graupel</string>
     <string name="dynamic_shortcut_action">Action du raccourci dynamique</string>
     <string name="auto_freeze_delay">Délai avant gel (minutes)</string>
     <string name="skip_notifying_app">Ignorer les notifications d\'application</string>

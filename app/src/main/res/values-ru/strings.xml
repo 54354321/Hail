@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Hail</string>
+    <string name="app_name">Graupel</string>
     <string name="app_slogan">Freezedom!</string>
     <string name="title_home">Главная</string>
     <string name="title_apps">Приложения</string>
@@ -48,7 +48,7 @@
     <string name="title_set_owner">Установить вадельца устройства</string>
     <string name="msg_set_owner">Выполните команду из adb:\n%s</string>
     <string name="title_remove_owner">Удаление владельца устройства</string>
-    <string name="msg_remove_owner">Если Hail удален как владелец устройства, после его удаления могут возникнуть трудности с реорганизацией приложений.
+    <string name="msg_remove_owner">Если Graupel удален как владелец устройства, после его удаления могут возникнуть трудности с реорганизацией приложений.
 \nЗамороженные приложения останутся замороженными после удаления, пожалуйста, убедитесь, что вы разморозили важные приложения.</string>
     <string name="tap_to_select">Нажмите, чтобы выбрать несколько</string>
     <string name="filter_by">Фильтр</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">هایل</string>
+    <string name="app_name">Graupel</string>
     <string name="app_slogan">یخبندان!</string>
     <string name="title_home">خانه</string>
     <string name="title_apps">برنامه‌ها</string>
@@ -122,7 +122,7 @@
     <string name="mode_su_hide">روت - پنهان کردن</string>
     <string name="action_fdroid">F-Droid</string>
     <string name="action_skip">رد کردن</string>
-    <string name="msg_remove_owner">اگر Hail به عنوان مالک دستگاه حذف شود، ممکن است پس از حذف Hail در سازماندهی مجدد برنامه‌ها مشکلاتی وجود داشته باشد. \n برنامه‌های یخ‌زده پس از حذف به همان شکل می‌مانند، لطفاً مطمئن شوید که برنامه‌های مهم را از حالت یخ‌زدگی بیرون آورده‌اید.</string>
+    <string name="msg_remove_owner">اگر Graupel به عنوان مالک دستگاه حذف شود، ممکن است پس از حذف Graupel در سازماندهی مجدد برنامه‌ها مشکلاتی وجود داشته باشد. \n برنامه‌های یخ‌زده پس از حذف به همان شکل می‌مانند، لطفاً مطمئن شوید که برنامه‌های مهم را از حالت یخ‌زدگی بیرون آورده‌اید.</string>
     <string name="permission_denied">اجازه رد شد</string>
     <string name="activity_not_found">فعالیت راه اندازی یافت نشد</string>
     <string name="skip_while_charging">رد کردن هنگام شارژ</string>

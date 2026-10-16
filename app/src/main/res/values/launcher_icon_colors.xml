@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="launcher_icon_background">#FFFFFF</color>
+    <color name="launcher_icon_stroke">#000000</color>
+    <color name="launcher_icon_fill">#81D4FA</color>
+</resources>

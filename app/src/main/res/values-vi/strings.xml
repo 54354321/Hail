@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="msg_remove_owner">Nếu Hail bị gỡ bỏ khỏi vai trò là chủ sở hữu của thiết bị, có thể gặp khó khăn khi sắp xếp lại các ứng dụng sau khi gỡ bỏ Hail.
+    <string name="msg_remove_owner">Nếu Graupel bị gỡ bỏ khỏi vai trò là chủ sở hữu của thiết bị, có thể gặp khó khăn khi sắp xếp lại các ứng dụng sau khi gỡ bỏ Graupel.
 \nCác ứng dụng đã đóng băng sẽ vẫn bị đóng băng sau khi gỡ bỏ, hãy đảm bảo là bạn đã rã băng các ứng dụng quan trọng.</string>
     <string name="msg_freeze">Đóng băng: %s</string>
     <string name="action_whitelist">Thêm vào Danh sách trắng</string>
@@ -110,7 +110,7 @@
     <string name="title_set_owner">Thiết lập Chủ Sở Hữu Thiết Bị</string>
     <string name="action_freeze_current">Đóng băng trang hiện tại</string>
     <string name="msg_extract_apk">Đã trích xuất vào: %s</string>
-    <string name="app_name">Hail</string>
+    <string name="app_name">Graupel</string>
     <string name="action_freeze_non_whitelisted">Đóng băng toàn bộ trừ danh sách trắng</string>
     <string name="action_unfreeze_current">Rã băng trang hiện tại</string>
     <string name="dynamic_shortcut_action">Hành động cho lối tắt</string>

@@ -10,19 +10,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 object HailData {
-    const val URL_WHY_FREE_SOFTWARE = "https://www.gnu.org/philosophy/free-software-even-more-important.html"
     const val URL_GITHUB = "https://github.com/aistra0528/Hail"
     const val URL_README = "$URL_GITHUB#readme"
-    const val URL_RELEASES = "$URL_GITHUB/releases"
-    const val URL_TELEGRAM = "https://t.me/+yvRXYTounDIxODFl"
-    const val URL_QQ = "http://qm.qq.com/cgi-bin/qm/qr?k=I2g_Ymanc6bQMo4cVKTG0knARE0twtSG"
-    const val URL_FDROID = "https://f-droid.org/packages/${BuildConfig.APPLICATION_ID}"
-    const val URL_ALIPAY = "https://qr.alipay.com/tsx02922ajwj6xekqyd1rbf"
-    const val URL_ALIPAY_API = "alipays://platformapi/startapp?saId=10000007&qrcode=$URL_ALIPAY"
-    const val URL_KOFI = "https://ko-fi.com/aistra0528"
-    const val URL_LIBERAPAY = "https://liberapay.com/aistra0528"
-    const val URL_PAYPAL = "https://www.paypal.me/aistra0528"
-    const val URL_TRANSLATE = "https://hosted.weblate.org/engage/hail/"
     const val VERSION = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
     private const val KEY_ID = "id"
     const val KEY_TAG = "tag"

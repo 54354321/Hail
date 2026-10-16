@@ -15,7 +15,7 @@
     <string name="action_licenses">ใบอนุญาต</string>
     <string name="action_freeze_all">แช่แข็งทั้งหมด</string>
     <string name="action_unfreeze_all">ปลดแช่แข็งทั้งหมด</string>
-    <string name="app_name">หิมะ</string>
+    <string name="app_name">Graupel</string>
     <string name="app_slogan">แช่แข็งอิสระ</string>
     <string name="action_freeze_current">แช่แข็งสิ่งที่เห็น</string>
     <string name="action_unfreeze_current">ปลดแช่แข็งสิ่งที่เห็น</string>
