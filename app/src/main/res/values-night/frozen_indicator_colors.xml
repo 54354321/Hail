@@ -1,0 +1,4 @@
+<resources>
+    <color name="frozen_indicator_blue">#A5CEF2</color>
+    <color name="frozen_indicator_container">#29435F</color>
+</resources>

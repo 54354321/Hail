@@ -162,4 +162,13 @@
     <string name="home_sort_install">Install date (oldest first)</string>
     <string name="biometric_unavailable">Authentication is unavailable. Set up a screen lock or biometrics in system settings, then try again.</string>
     <string name="open_security_settings">Security settings</string>
+    <string name="frozen_indicator">Frozen status marker</string>
+    <string name="frozen_indicator_badge">Snowflake badge</string>
+    <string name="frozen_indicator_text">Status text</string>
+    <string name="frozen_indicator_overlay">Snowflake overlay</string>
+    <string name="frozen_indicator_none">None</string>
+    <string name="frozen_name_snowflake">Blue snowflake before app names</string>
+    <string name="app_icon_size">App icon size</string>
+    <string name="frozen_status">Frozen</string>
+    <string name="unfrozen_status">Not frozen</string>
 </resources>

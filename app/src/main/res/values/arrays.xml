@@ -86,4 +86,10 @@
         <item>@string/action_lock</item>
         <item>@string/action_lock_freeze</item>
     </string-array>
+    <string-array name="frozen_indicator_entries">
+        <item>@string/frozen_indicator_badge</item>
+        <item>@string/frozen_indicator_text</item>
+        <item>@string/frozen_indicator_overlay</item>
+        <item>@string/frozen_indicator_none</item>
+    </string-array>
 </resources>

@@ -124,6 +124,11 @@ class AppsFragment : MainFragment(), AppsAdapter.OnItemClickListener, AppsAdapte
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        appsAdapter.refreshAppearance()
+    }
+
     override fun onItemClick(buttonView: CompoundButton) {
 //        buttonView.toggle()
     }
@@ -286,9 +291,9 @@ class AppsFragment : MainFragment(), AppsAdapter.OnItemClickListener, AppsAdapte
     private fun updateAppList() = model.updateAppList()
     private fun updateDisplayAppList() = model.updateDisplayAppList()
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         appsAdapter.onDestroy()
-        super.onDestroy()
+        super.onDestroyView()
         _binding = null
     }
 }

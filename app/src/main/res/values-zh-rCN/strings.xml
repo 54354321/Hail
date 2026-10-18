@@ -160,4 +160,13 @@
     <string name="home_sort_install">安装顺序（从早到晚）</string>
     <string name="biometric_unavailable">当前无法验证身份，请先在系统设置中配置锁屏密码或生物识别，再重试。</string>
     <string name="open_security_settings">安全设置</string>
+    <string name="frozen_indicator">冻结状态标记</string>
+    <string name="frozen_indicator_badge">雪花角标</string>
+    <string name="frozen_indicator_text">状态文字</string>
+    <string name="frozen_indicator_overlay">中心蒙层</string>
+    <string name="frozen_indicator_none">不显示标记</string>
+    <string name="frozen_name_snowflake">名称前蓝色雪花</string>
+    <string name="app_icon_size">应用图标大小</string>
+    <string name="frozen_status">已冻结</string>
+    <string name="unfrozen_status">未冻结</string>
 </resources>

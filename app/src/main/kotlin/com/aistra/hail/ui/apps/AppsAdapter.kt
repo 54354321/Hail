@@ -7,6 +7,8 @@ import android.widget.CompoundButton
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.aistra.hail.R
+import com.aistra.hail.views.*
 import com.aistra.hail.app.AppManager
 import com.aistra.hail.app.HailData
 import com.aistra.hail.databinding.ItemAppsBinding
@@ -30,7 +32,7 @@ class AppsAdapter : ListAdapter<ApplicationInfo, AppsAdapter.ViewHolder>(DIFF) {
 
     lateinit var onItemClickListener: OnItemClickListener
     lateinit var onItemCheckedChangeListener: OnItemCheckedChangeListener
-    private var loadIconJob: Job? = null
+    private val boundHolders = mutableSetOf<ViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
         ItemAppsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -42,10 +44,12 @@ class AppsAdapter : ListAdapter<ApplicationInfo, AppsAdapter.ViewHolder>(DIFF) {
     }
 
     fun onDestroy() {
-        if (loadIconJob?.isActive == true) loadIconJob?.cancel()
+        boundHolders.forEach { it.iconJob?.cancel() }
+        boundHolders.clear()
     }
 
     inner class ViewHolder(private val binding: ItemAppsBinding) : RecyclerView.ViewHolder(binding.root) {
+        var iconJob: Job? = null
         lateinit var info: ApplicationInfo
         private val pkg get() = info.packageName
 
@@ -65,19 +69,22 @@ class AppsAdapter : ListAdapter<ApplicationInfo, AppsAdapter.ViewHolder>(DIFF) {
         }
 
         fun bindInfo(info: ApplicationInfo) {
+            iconJob?.cancel()
+            boundHolders.add(this)
             updating = true
             this.info = info
             val frozen = AppManager.isAppFrozen(pkg)
 
             binding.appIcon.apply {
-                loadIconJob = AppIconCache.loadIconBitmapAsync(
+                bindFrozenAppearance(frozen)
+                iconJob = AppIconCache.loadIconBitmapAsync(
                     context, info, HPackages.myUserId, this, HailData.grayscaleIcon && frozen
                 )
             }
             binding.appName.apply {
                 val name = info.loadLabel(context.packageManager)
                 text = if (!HailData.grayscaleIcon && frozen) "❄️$name" else name
-                isEnabled = !HailData.grayscaleIcon || !frozen
+                isEnabled = true
                 if (HPackages.isAppUninstalled(pkg)) setTextColor(
                     MaterialColors.getColor(
                         this, androidx.appcompat.R.attr.colorError
@@ -87,12 +94,23 @@ class AppsAdapter : ListAdapter<ApplicationInfo, AppsAdapter.ViewHolder>(DIFF) {
             }
             binding.appDesc.apply {
                 text = pkg
-                isEnabled = !HailData.grayscaleIcon || !frozen
+                isEnabled = true
             }
+            binding.appFrozenState.bindFrozenCaption(frozen)
+            binding.root.contentDescription = "${info.loadLabel(binding.root.context.packageManager)}, ${binding.root.context.getString(if (frozen) R.string.frozen_status else R.string.unfrozen_status)}"
             binding.appStar.isChecked = HailData.isChecked(pkg)
             updating = false
         }
     }
+
+    override fun onViewRecycled(holder: ViewHolder) {
+        holder.iconJob?.cancel()
+        boundHolders.remove(holder)
+        super.onViewRecycled(holder)
+    }
+
+    @android.annotation.SuppressLint("NotifyDataSetChanged")
+    fun refreshAppearance() = notifyDataSetChanged()
 
     interface OnItemClickListener {
         fun onItemClick(buttonView: CompoundButton)

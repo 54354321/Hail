@@ -42,6 +42,7 @@ import com.aistra.hail.R
 import com.aistra.hail.app.AppManager
 import com.aistra.hail.app.HailApi
 import com.aistra.hail.app.HailData
+import com.aistra.hail.app.FrozenIndicator
 import com.aistra.hail.databinding.DialogInputBinding
 import com.aistra.hail.ui.main.MainActivity
 import com.aistra.hail.ui.main.MainFragment
@@ -143,6 +144,29 @@ class SettingsFragment : MainFragment(), MenuProvider {
                     defaultValue = true,
                     titleId = R.string.grayscale_icon,
                     icon = Icons.Outlined.FilterBAndW
+                )
+                listPreference(
+                    key = HailData.FROZEN_INDICATOR,
+                    defaultValue = FrozenIndicator.BADGE.key,
+                    values = FrozenIndicator.entries.map { it.key },
+                    entriesId = R.array.frozen_indicator_entries,
+                    titleId = R.string.frozen_indicator,
+                    icon = Icons.Outlined.AcUnit,
+                )
+                switchPreference(
+                    key = HailData.FROZEN_NAME_SNOWFLAKE,
+                    defaultValue = true,
+                    titleId = R.string.frozen_name_snowflake,
+                    icon = Icons.Outlined.TextFields,
+                )
+                sliderPreference(
+                    key = HailData.APP_ICON_SIZE,
+                    defaultValue = 64f,
+                    title = { Text(stringResource(R.string.app_icon_size)) },
+                    valueRange = 48f..96f,
+                    valueSteps = 11,
+                    icon = { Icon(Icons.Outlined.PhotoSizeSelectLarge, contentDescription = null) },
+                    valueText = { Text("${it.toInt()} dp") },
                 )
                 switchPreference(
                     key = HailData.COMPACT_ICON,

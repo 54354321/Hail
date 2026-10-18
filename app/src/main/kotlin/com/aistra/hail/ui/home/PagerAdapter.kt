@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aistra.hail.R
 import com.aistra.hail.app.AppInfo
 import com.aistra.hail.app.HailData
+import com.aistra.hail.views.*
 import com.aistra.hail.utils.AppIconCache
 import com.aistra.hail.utils.HPackages.myUserId
 import com.google.android.material.color.MaterialColors
@@ -21,7 +22,7 @@ class PagerAdapter(
     private val selectedList: List<AppInfo>,
     private val flags: MutableMap<String, Int> = mutableMapOf()
 ) : ListAdapter<AppInfo, PagerAdapter.ViewHolder>(HomeDiff(selectedList, flags)) {
-    private var loadIconJob: Job? = null
+    private val boundHolders = mutableSetOf<ViewHolder>()
     lateinit var onItemClickListener: OnItemClickListener
     lateinit var onItemLongClickListener: OnItemLongClickListener
 
@@ -31,13 +32,22 @@ class PagerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = currentList[position]
+        val frozen = info.state == AppInfo.State.FROZEN
+        holder.iconJob?.cancel()
+        boundHolders.add(holder)
         flags[info.packageName] = info.getFlag(selectedList)
         holder.itemView.run {
             setOnClickListener { onItemClickListener.onItemClick(info) }
             setOnLongClickListener { onItemLongClickListener.onItemLongClick(info) }
-            findViewById<ImageView>(R.id.app_icon).run {
+            contentDescription = "${info.name}, ${context.getString(when (info.state) {
+                AppInfo.State.FROZEN -> R.string.frozen_status
+                AppInfo.State.NOT_FOUND -> R.string.app_not_installed
+                else -> R.string.unfrozen_status
+            })}"
+            findViewById<FrozenIconView>(R.id.app_icon).run {
+                bindFrozenAppearance(frozen)
                 info.applicationInfo?.let {
-                    loadIconJob = AppIconCache.loadIconBitmapAsync(
+                    holder.iconJob = AppIconCache.loadIconBitmapAsync(
                         context,
                         it,
                         myUserId,
@@ -50,12 +60,8 @@ class PagerAdapter(
                 }
             }
             findViewById<TextView>(R.id.app_name).run {
-                text = buildString {
-                    if (!HailData.grayscaleIcon && info.state == AppInfo.State.FROZEN) append("\u2744\uFE0F")
-                    if (info.whitelisted) append("\uD83D\uDD12")
-                    append(info.name)
-                }
-                isEnabled = !HailData.grayscaleIcon || info.state != AppInfo.State.FROZEN
+                frozenAppName(info.name, frozen, info.whitelisted)
+                isEnabled = true
                 when {
                     info in selectedList -> setTextColor(
                         MaterialColors.getColor(this, androidx.appcompat.R.attr.colorPrimary)
@@ -69,11 +75,13 @@ class PagerAdapter(
                 }
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, HailData.homeFontSize)
             }
+            findViewById<TextView>(R.id.app_frozen_state).bindFrozenCaption(frozen)
         }
     }
 
     fun onDestroy() {
-        if (loadIconJob?.isActive == true) loadIconJob?.cancel()
+        boundHolders.forEach { it.iconJob?.cancel() }
+        boundHolders.clear()
     }
 
     private class HomeDiff(
@@ -85,7 +93,18 @@ class PagerAdapter(
             flags[oldItem.packageName] == newItem.getFlag(selectedList)
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    override fun onViewRecycled(holder: ViewHolder) {
+        holder.iconJob?.cancel()
+        boundHolders.remove(holder)
+        super.onViewRecycled(holder)
+    }
+
+    @android.annotation.SuppressLint("NotifyDataSetChanged")
+    fun refreshAppearance() = notifyDataSetChanged()
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var iconJob: Job? = null
+    }
 
     interface OnItemClickListener {
         fun onItemClick(info: AppInfo)

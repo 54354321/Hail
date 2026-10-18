@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aistra.hail.HailApp.Companion.app
 import com.aistra.hail.R
+import com.aistra.hail.app.homeGridColumns
 import com.aistra.hail.app.AppInfo
 import com.aistra.hail.app.AppManager
 import com.aistra.hail.app.HailApi
@@ -80,11 +81,9 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
             onItemLongClickListener = this@PagerFragment
         }
         binding.recyclerView.run {
-            layoutManager = GridLayoutManager(
-                activity, resources.getInteger(
-                    if (HailData.compactIcon) R.integer.home_span_compact else R.integer.home_span
-                )
-            )
+            layoutManager = GridLayoutManager(activity, homeGridColumns(resources.displayMetrics.widthPixels,
+                resources.displayMetrics.density, HailData.appIconSize, HailData.compactIcon))
+            addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> updateGridColumns() }
             adapter = pagerAdapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -114,6 +113,8 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
 
     override fun onResume() {
         super.onResume()
+        updateGridColumns()
+        pagerAdapter.refreshAppearance()
         updateCurrentList()
         updateBarTitle()
         activity.appbar.setLiftOnScrollTargetView(binding.recyclerView)
@@ -130,6 +131,15 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
             setListFrozen(true)
             true
         }
+    }
+
+    private fun updateGridColumns() {
+        val recycler = _binding?.recyclerView ?: return
+        if (recycler.width <= 0) return
+        val manager = recycler.layoutManager as? GridLayoutManager ?: return
+        val columns = homeGridColumns(recycler.width - recycler.paddingLeft - recycler.paddingRight,
+            resources.displayMetrics.density, HailData.appIconSize, HailData.compactIcon)
+        if (manager.spanCount != columns) manager.spanCount = columns
     }
 
     private fun updateCurrentList() = HailData.checkedList.filter {

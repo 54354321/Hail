@@ -10,6 +10,8 @@ Graupel is an independently installable variant of [Hail](https://github.com/ais
 - Home sorting can be saved independently as A–Z or first-install order (oldest first), with pinned apps first.
 - Enabling or disabling biometric login requires system authentication. Returning from the background locks the interface again; unavailable authentication does not bypass the lock.
 - Day and night launcher icons follow the system theme. The night icon inverts black/white, with a slightly dimmer, less saturated blue to compensate for its dark background. The installer uses the original daytime icon.
+- Frozen indicators can be selected in Settings; grayscale and the blue snowflake before app names are independent. The corner badge stays fixed at 18 dp.
+- App icon size is adjustable from 48 to 96 dp. Home columns adapt to the available width and move excess items to the next row.
 - Home and Apps sorting use a compact, single-choice dialog instead of a cascading toolbar submenu.
 - Three navigation tabs, with version, source and license information in Settings.
 - Bounded settings ripple and row-width selection menus that expand inline below the clicked row.

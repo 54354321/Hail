@@ -99,7 +99,7 @@ object AppIconCache : CoroutineScope {
         setColorFilter: Boolean = false
     ): Job {
         return launch {
-            val size = view.measuredWidth.let {
+            val size = (view.layoutParams?.width?.takeIf { it > 0 } ?: view.measuredWidth).let {
                 if (it > 0) it else context.resources.getDimensionPixelSize(R.dimen.app_icon_size)
             }
             if (shrinkNonAdaptiveIcons != HailData.synthesizeAdaptiveIcons) {

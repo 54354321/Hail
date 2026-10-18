@@ -150,4 +150,13 @@
     <string name="home_sort_install">インストール順（古い順）</string>
     <string name="biometric_unavailable">認証を利用できません。システム設定で画面ロックまたは生体認証を設定し、再試行してください。</string>
     <string name="open_security_settings">セキュリティ設定</string>
+    <string name="frozen_indicator">凍結状態の表示</string>
+    <string name="frozen_indicator_badge">雪の結晶バッジ</string>
+    <string name="frozen_indicator_text">状態の文字</string>
+    <string name="frozen_indicator_overlay">中央のオーバーレイ</string>
+    <string name="frozen_indicator_none">表示しない</string>
+    <string name="frozen_name_snowflake">名前の前に青い雪の結晶</string>
+    <string name="app_icon_size">アプリアイコンの大きさ</string>
+    <string name="frozen_status">凍結済み</string>
+    <string name="unfrozen_status">未凍結</string>
 </resources>

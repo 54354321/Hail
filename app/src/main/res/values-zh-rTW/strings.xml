@@ -159,4 +159,13 @@
     <string name="home_sort_install">安裝順序（由早到晚）</string>
     <string name="biometric_unavailable">目前無法驗證身分，請先在系統設定中設定鎖定密碼或生物辨識，再重試。</string>
     <string name="open_security_settings">安全設定</string>
+    <string name="frozen_indicator">凍結狀態標記</string>
+    <string name="frozen_indicator_badge">雪花角標</string>
+    <string name="frozen_indicator_text">狀態文字</string>
+    <string name="frozen_indicator_overlay">中央遮罩</string>
+    <string name="frozen_indicator_none">不顯示標記</string>
+    <string name="frozen_name_snowflake">名稱前藍色雪花</string>
+    <string name="app_icon_size">應用程式圖示大小</string>
+    <string name="frozen_status">已凍結</string>
+    <string name="unfrozen_status">未凍結</string>
 </resources>
