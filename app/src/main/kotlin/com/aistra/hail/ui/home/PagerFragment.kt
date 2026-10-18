@@ -138,7 +138,17 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
         )) || FuzzySearch.search(it.packageName, query) || FuzzySearch.search(
             it.name.toString(), query
         ) || PinyinSearch.searchPinyinAll(it.name.toString(), query))
-    }.sortedWith(NameComparator).let {
+    }.let { apps ->
+        orderHomeApps(
+            apps = apps,
+            byInstall = HailData.homeSortBy == HailData.SORT_INSTALL,
+            pinned = { it.pinned },
+            installed = { HPackages.getUnhiddenPackageInfoOrNull(it.packageName)?.firstInstallTime },
+            byName = Comparator { a, b ->
+                NameComparator.compare(a, b).takeIf { it != 0 } ?: a.packageName.compareTo(b.packageName)
+            },
+        )
+    }.let {
         binding.empty.isVisible = it.isEmpty()
         pagerAdapter.submitList(it)
         app.setAutoFreezeService()
@@ -555,6 +565,13 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.home_sort_by_name, R.id.home_sort_by_install -> {
+                HailData.changeHomeSort(if (item.itemId == R.id.home_sort_by_install)
+                    HailData.SORT_INSTALL else HailData.SORT_NAME)
+                item.isChecked = true
+                updateCurrentList()
+                return true
+            }
             R.id.action_multiselect -> {
                 multiselect = !multiselect
                 item.updateIcon()
@@ -589,6 +606,8 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_home, menu)
+        menu.findItem(if (HailData.homeSortBy == HailData.SORT_INSTALL)
+            R.id.home_sort_by_install else R.id.home_sort_by_name).isChecked = true
         val searchView = menu.findItem(R.id.action_search).actionView as SearchView
         if (HailData.nineKeySearch) {
             val editText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)

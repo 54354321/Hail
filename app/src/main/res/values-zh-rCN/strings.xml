@@ -156,4 +156,8 @@
     <string name="state_uninstalled">已卸载</string>
     <string name="donate_kofi">Ko-fi</string>
     <string name="mode_jailbreak_disable">越狱 - 停用</string>
+    <string name="home_sort_name">名称（A–Z）</string>
+    <string name="home_sort_install">安装顺序（从早到晚）</string>
+    <string name="biometric_unavailable">当前无法验证身份，请先在系统设置中配置锁屏密码或生物识别，再重试。</string>
+    <string name="open_security_settings">安全设置</string>
 </resources>

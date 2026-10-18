@@ -7,7 +7,9 @@ Graupel is an independently installable variant of [Hail](https://github.com/ais
 ## Changes
 
 - Separate application ID: `io.github.localbuild.graupel`; can coexist with Hail.
-- Day and night launcher icons follow the system theme. The installer uses the original daytime icon.
+- Home sorting can be saved independently as A–Z or first-install order (oldest first), with pinned apps first.
+- Enabling or disabling biometric login requires system authentication. Returning from the background locks the interface again; unavailable authentication does not bypass the lock.
+- Day and night launcher icons follow the system theme. The night icon inverts black/white, with a slightly dimmer, less saturated blue to compensate for its dark background. The installer uses the original daytime icon.
 - Three navigation tabs, with version, source and license information in Settings.
 - Bounded settings ripple and row-width selection menus that expand inline below the clicked row.
 - No links to official Hail release/update distribution channels in the app.

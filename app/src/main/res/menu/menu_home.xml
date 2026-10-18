@@ -14,6 +14,15 @@
             android:title="@string/tap_to_select"
             app:showAsAction="always"
             tools:ignore="AlwaysShowAction"/>
+    <item android:icon="@drawable/ic_outline_sort"
+          android:title="@string/sort_by" app:showAsAction="ifRoom">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/home_sort_by_name" android:title="@string/home_sort_name"/>
+                <item android:id="@+id/home_sort_by_install" android:title="@string/home_sort_install"/>
+            </group>
+        </menu>
+    </item>
     <group android:id="@+id/group_freeze_current">
         <item
                 android:id="@+id/action_freeze_current"

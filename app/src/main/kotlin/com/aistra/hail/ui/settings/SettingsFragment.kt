@@ -97,16 +97,14 @@ class SettingsFragment : MainFragment(), MenuProvider {
                     icon = Icons.Outlined.Adb,
                     type = ListPreferenceType.ALERT_DIALOG
                 )
-                switchPreference(
-                    key = HailData.BIOMETRIC_LOGIN,
-                    defaultValue = false,
-                    onValueChange = { _, value ->
-                        if (value) resetDynamicShortcuts()
-                        true
-                    },
-                    titleId = R.string.action_biometric,
-                    icon = Icons.Outlined.Fingerprint
-                )
+                item(key = HailData.BIOMETRIC_LOGIN, contentType = "SwitchPreference") {
+                    SwitchPreference(
+                        value = activity.biometricLoginEnabled,
+                        onValueChange = activity::requestBiometricSetting,
+                        title = { Text(stringResource(R.string.action_biometric)) },
+                        icon = { Icon(Icons.Outlined.Fingerprint, contentDescription = null) },
+                    )
+                }
                 horizontalDivider()
                 preferenceCategory(key = "customize", title = { Text(text = stringResource(R.string.title_customize)) })
                 listPreference(

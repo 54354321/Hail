@@ -146,4 +146,8 @@
     <string name="command">コマンド</string>
     <string name="nine_key">T9 Search</string>
     <string name="freeze_system_app">システムアプリを無効化やアンインストールすると、デバイスがブートループに陥る可能性があります。操作内容を十分に理解し、事前にデータをバックアップするか、ファイル管理に対応したリカバリーツールをご利用ください。</string>
+    <string name="home_sort_name">名前（A–Z）</string>
+    <string name="home_sort_install">インストール順（古い順）</string>
+    <string name="biometric_unavailable">認証を利用できません。システム設定で画面ロックまたは生体認証を設定し、再試行してください。</string>
+    <string name="open_security_settings">セキュリティ設定</string>
 </resources>

@@ -158,4 +158,8 @@
     <string name="state_suspended">Suspended</string>
     <string name="state_uninstalled">Uninstalled</string>
     <string name="mode_jailbreak_disable">Jailbreak - Disable</string>
+    <string name="home_sort_name">Name (A–Z)</string>
+    <string name="home_sort_install">Install date (oldest first)</string>
+    <string name="biometric_unavailable">Authentication is unavailable. Set up a screen lock or biometrics in system settings, then try again.</string>
+    <string name="open_security_settings">Security settings</string>
 </resources>

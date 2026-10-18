@@ -17,8 +17,8 @@ android {
         applicationId = "io.github.localbuild.graupel"
         minSdk = 23
         targetSdk = 36
-        versionCode = 8
-        versionName = "1.0.7"
+        versionCode = 9
+        versionName = "1.0.8"
     }
 
     buildTypes {

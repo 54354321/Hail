@@ -21,6 +21,7 @@ object HailData {
     const val KEY_PACKAGE = "package"
     const val KEY_FROZEN = "frozen"
     private const val SORT_BY = "sort_by"
+    private const val HOME_SORT_BY = "home_sort_by"
     const val SORT_NAME = "name"
     const val SORT_INSTALL = "install"
     const val SORT_UPDATE = "update"
@@ -124,6 +125,7 @@ object HailData {
 
     private val sp = PreferenceManager.getDefaultSharedPreferences(app)
     val sortBy get() = sp.getString(SORT_BY, SORT_NAME)
+    val homeSortBy get() = sp.getString(HOME_SORT_BY, SORT_NAME)
     val filterUserApps get() = sp.getBoolean(FILTER_USER_APPS, true)
     val filterSystemApps get() = sp.getBoolean(FILTER_SYSTEM_APPS, false)
     val filterFrozenApps get() = sp.getBoolean(FILTER_FROZEN_APPS, true)
@@ -222,6 +224,10 @@ object HailData {
             toString()
         })
     }
+
+    fun changeHomeSort(sort: String) = sp.edit { putString(HOME_SORT_BY, sort) }
+
+    fun setBiometricLogin(enabled: Boolean) = sp.edit { putBoolean(BIOMETRIC_LOGIN, enabled) }
 
     fun changeAppsSort(sort: String) = sp.edit { putString(SORT_BY, sort) }
 
