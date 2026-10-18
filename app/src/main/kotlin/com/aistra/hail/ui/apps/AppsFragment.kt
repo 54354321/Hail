@@ -21,6 +21,7 @@ import com.aistra.hail.app.HailData
 import com.aistra.hail.databinding.FragmentAppsBinding
 import com.aistra.hail.extensions.*
 import com.aistra.hail.ui.main.MainFragment
+import com.aistra.hail.ui.main.showSortOrderDialog
 import com.aistra.hail.utils.HFiles
 import com.aistra.hail.utils.HPackages
 import com.aistra.hail.utils.HPolicy
@@ -226,13 +227,6 @@ class AppsFragment : MainFragment(), AppsAdapter.OnItemClickListener, AppsAdapte
     override fun onPrepareMenu(menu: Menu) {
         super.onPrepareMenu(menu)
         menu.findItem(
-            when (HailData.sortBy) {
-                HailData.SORT_INSTALL -> R.id.sort_by_install
-                HailData.SORT_UPDATE -> R.id.sort_by_update
-                else -> R.id.sort_by_name
-            }
-        ).isChecked = true
-        menu.findItem(
             if (HailData.filterSystemApps) R.id.filter_system_apps else R.id.filter_user_apps
         ).isChecked = true
         menu.findItem(R.id.filter_frozen_apps).isChecked = HailData.filterFrozenApps
@@ -241,9 +235,15 @@ class AppsFragment : MainFragment(), AppsAdapter.OnItemClickListener, AppsAdapte
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.sort_by_name -> changeAppsSort(HailData.SORT_NAME, item)
-            R.id.sort_by_install -> changeAppsSort(HailData.SORT_INSTALL, item)
-            R.id.sort_by_update -> changeAppsSort(HailData.SORT_UPDATE, item)
+            R.id.action_sort_apps -> {
+                showSortOrderDialog(
+                    selected = HailData.sortBy,
+                    values = listOf(HailData.SORT_NAME, HailData.SORT_INSTALL, HailData.SORT_UPDATE),
+                    labels = listOf(getString(R.string.home_sort_name), getString(R.string.home_sort_install),
+                        getString(R.string.sort_update)),
+                ) { sort -> changeAppsSort(sort) }
+                return true
+            }
             R.id.filter_user_apps -> changeAppsFilter(HailData.FILTER_USER_APPS, item)
             R.id.filter_system_apps -> MaterialAlertDialogBuilder(activity).setMessage(R.string.freeze_system_app)
                 .setPositiveButton(R.string.action_continue) { _, _ ->
@@ -256,8 +256,7 @@ class AppsFragment : MainFragment(), AppsAdapter.OnItemClickListener, AppsAdapte
         return false
     }
 
-    private fun changeAppsSort(sort: String, item: MenuItem) {
-        item.isChecked = true
+    private fun changeAppsSort(sort: String) {
         HailData.changeAppsSort(sort)
         updateDisplayAppList()
     }

@@ -40,6 +40,7 @@ import com.aistra.hail.databinding.DialogInputBinding
 import com.aistra.hail.databinding.FragmentPagerBinding
 import com.aistra.hail.extensions.*
 import com.aistra.hail.ui.main.MainFragment
+import com.aistra.hail.ui.main.showSortOrderDialog
 import com.aistra.hail.ui.theme.AppTheme
 import com.aistra.hail.utils.*
 import com.aistra.hail.work.HWork
@@ -565,11 +566,15 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.home_sort_by_name, R.id.home_sort_by_install -> {
-                HailData.changeHomeSort(if (item.itemId == R.id.home_sort_by_install)
-                    HailData.SORT_INSTALL else HailData.SORT_NAME)
-                item.isChecked = true
-                updateCurrentList()
+            R.id.action_sort_home -> {
+                showSortOrderDialog(
+                    selected = HailData.homeSortBy,
+                    values = listOf(HailData.SORT_NAME, HailData.SORT_INSTALL),
+                    labels = listOf(getString(R.string.home_sort_name), getString(R.string.home_sort_install)),
+                ) { sort ->
+                    HailData.changeHomeSort(sort)
+                    updateCurrentList()
+                }
                 return true
             }
             R.id.action_multiselect -> {
@@ -606,8 +611,6 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_home, menu)
-        menu.findItem(if (HailData.homeSortBy == HailData.SORT_INSTALL)
-            R.id.home_sort_by_install else R.id.home_sort_by_name).isChecked = true
         val searchView = menu.findItem(R.id.action_search).actionView as SearchView
         if (HailData.nineKeySearch) {
             val editText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)

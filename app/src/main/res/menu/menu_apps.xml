@@ -35,22 +35,7 @@
             </group>
         </menu>
     </item>
-    <item
-            android:icon="@drawable/ic_outline_sort"
-            android:title="@string/sort_by"
-            app:showAsAction="ifRoom">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                        android:id="@+id/sort_by_name"
-                        android:title="@string/sort_name"/>
-                <item
-                        android:id="@+id/sort_by_install"
-                        android:title="@string/sort_install"/>
-                <item
-                        android:id="@+id/sort_by_update"
-                        android:title="@string/sort_update"/>
-            </group>
-        </menu>
-    </item>
+    <item android:id="@+id/action_sort_apps"
+          android:icon="@drawable/ic_outline_sort"
+          android:title="@string/sort_by" app:showAsAction="ifRoom"/>
 </menu>
