@@ -90,7 +90,7 @@ object HailData {
     const val FROZEN_INDICATOR = "frozen_indicator"
     const val FROZEN_NAME_SNOWFLAKE = "frozen_name_snowflake"
     const val APP_ICON_SIZE = "app_icon_size"
-    const val COMPACT_ICON = "compact_icon"
+    private const val COMPACT_ICON = "compact_icon"
     const val SYNTHESIZE_ADAPTIVE_ICONS = "synthesize_adaptive_icons"
     const val HOME_FONT_SIZE = "home_font_size_f"
     const val FUZZY_SEARCH = "fuzzy_search"
@@ -140,8 +140,15 @@ object HailData {
     val grayscaleIcon get() = sp.getBoolean(GRAYSCALE_ICON, true)
     val frozenIndicator get() = FrozenIndicator.fromKey(sp.getString(FROZEN_INDICATOR, "badge"))
     val frozenNameSnowflake get() = sp.getBoolean(FROZEN_NAME_SNOWFLAKE, true)
-    val appIconSize get() = sp.getFloat(APP_ICON_SIZE, 64f).toInt().coerceIn(48, 96)
-    val compactIcon get() = sp.getBoolean(COMPACT_ICON, false)
+    val appIconSize: Int
+        get() {
+            val saved = if (sp.contains(APP_ICON_SIZE)) sp.getFloat(APP_ICON_SIZE, 64f) else null
+            val size = resolvedIconSize(saved, sp.getBoolean(COMPACT_ICON, false))
+            if (saved != size.toFloat() || sp.contains(COMPACT_ICON)) {
+                sp.edit { putFloat(APP_ICON_SIZE, size.toFloat()); remove(COMPACT_ICON) }
+            }
+            return size
+        }
     val synthesizeAdaptiveIcons get() = sp.getBoolean(SYNTHESIZE_ADAPTIVE_ICONS, false)
     val homeFontSize get() = sp.getFloat(HOME_FONT_SIZE, 14f)
     val fuzzySearch get() = sp.getBoolean(FUZZY_SEARCH, false)

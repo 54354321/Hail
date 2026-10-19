@@ -82,7 +82,7 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
         }
         binding.recyclerView.run {
             layoutManager = GridLayoutManager(activity, homeGridColumns(resources.displayMetrics.widthPixels,
-                resources.displayMetrics.density, HailData.appIconSize, HailData.compactIcon))
+                resources.displayMetrics.density, HailData.appIconSize))
             addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> updateGridColumns() }
             adapter = pagerAdapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -138,7 +138,7 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
         if (recycler.width <= 0) return
         val manager = recycler.layoutManager as? GridLayoutManager ?: return
         val columns = homeGridColumns(recycler.width - recycler.paddingLeft - recycler.paddingRight,
-            resources.displayMetrics.density, HailData.appIconSize, HailData.compactIcon)
+            resources.displayMetrics.density, HailData.appIconSize)
         if (manager.spanCount != columns) manager.spanCount = columns
     }
 

@@ -161,18 +161,12 @@ class SettingsFragment : MainFragment(), MenuProvider {
                 )
                 sliderPreference(
                     key = HailData.APP_ICON_SIZE,
-                    defaultValue = 64f,
+                    defaultValue = HailData.appIconSize.toFloat(),
                     title = { Text(stringResource(R.string.app_icon_size)) },
                     valueRange = 48f..96f,
-                    valueSteps = 11,
+                    valueSteps = 5,
                     icon = { Icon(Icons.Outlined.PhotoSizeSelectLarge, contentDescription = null) },
                     valueText = { Text("${it.toInt()} dp") },
-                )
-                switchPreference(
-                    key = HailData.COMPACT_ICON,
-                    defaultValue = false,
-                    titleId = R.string.compact_icon,
-                    icon = Icons.Outlined.Apps
                 )
                 switchPreference(
                     key = HailData.SYNTHESIZE_ADAPTIVE_ICONS,
