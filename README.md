@@ -12,7 +12,7 @@ Graupel is an independently installable variant of [Hail](https://github.com/ais
 - Day and night launcher icons follow the system theme. The night icon inverts black/white, with a slightly dimmer, less saturated blue to compensate for its dark background. The installer uses the original daytime icon.
 - Frozen indicators can be selected in Settings; grayscale and the blue snowflake before app names are independent. The corner badge stays fixed at 18 dp.
 - A seven-level icon-size slider (48–96 dp, default 64 dp) replaces the compact-icon switch. Home columns adapt to the available width and move excess items to the next row.
-- Home and Apps sorting use a compact, single-choice dialog instead of a cascading toolbar submenu.
+- Home sorting, import and export expand inline inside one anchored More panel. Apps sorting uses a compact single-choice dialog.
 - Three navigation tabs, with version, source and license information in Settings.
 - Bounded settings ripple and row-width selection menus that expand inline below the clicked row.
 - No links to official Hail release/update distribution channels in the app.

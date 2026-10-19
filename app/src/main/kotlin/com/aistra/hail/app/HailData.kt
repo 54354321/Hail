@@ -10,7 +10,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 object HailData {
-    const val URL_GITHUB = "https://github.com/aistra0528/Hail"
+    const val URL_UPSTREAM = "https://github.com/aistra0528/Hail"
+    const val URL_GITHUB = "https://github.com/54354321/Hail/tree/graupel"
     const val URL_README = "$URL_GITHUB#readme"
     const val VERSION = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
     private const val KEY_ID = "id"

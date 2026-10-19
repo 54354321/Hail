@@ -6,6 +6,8 @@ import android.text.InputType
 import android.view.*
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.AppCompatImageButton
+import android.widget.PopupWindow
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -41,7 +43,6 @@ import com.aistra.hail.databinding.DialogInputBinding
 import com.aistra.hail.databinding.FragmentPagerBinding
 import com.aistra.hail.extensions.*
 import com.aistra.hail.ui.main.MainFragment
-import com.aistra.hail.ui.main.showSortOrderDialog
 import com.aistra.hail.ui.theme.AppTheme
 import com.aistra.hail.utils.*
 import com.aistra.hail.work.HWork
@@ -56,6 +57,7 @@ import org.json.JSONArray
 
 class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAdapter.OnItemLongClickListener,
     MenuProvider {
+    private var overflowPopup: PopupWindow? = null
     private var query: String = String()
     private var _binding: FragmentPagerBinding? = null
     private val binding get() = _binding!!
@@ -576,17 +578,6 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_sort_home -> {
-                showSortOrderDialog(
-                    selected = HailData.homeSortBy,
-                    values = listOf(HailData.SORT_NAME, HailData.SORT_INSTALL),
-                    labels = listOf(getString(R.string.home_sort_name), getString(R.string.home_sort_install)),
-                ) { sort ->
-                    HailData.changeHomeSort(sort)
-                    updateCurrentList()
-                }
-                return true
-            }
             R.id.action_multiselect -> {
                 multiselect = !multiselect
                 item.updateIcon()
@@ -621,6 +612,25 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_home, menu)
+        overflowPopup?.dismiss()
+        for (index in 0 until menu.size()) {
+            val item = menu.getItem(index)
+            item.isVisible = item.itemId in setOf(R.id.action_search, R.id.action_multiselect, R.id.action_home_more)
+        }
+        menu.findItem(R.id.action_home_more).actionView = AppCompatImageButton(requireContext(), null,
+            androidx.appcompat.R.attr.actionOverflowButtonStyle).apply {
+            setImageResource(R.drawable.ic_outline_more_vert)
+            contentDescription = getString(androidx.appcompat.R.string.abc_action_menu_overflow_description)
+            val size = (48 * resources.displayMetrics.density).toInt()
+            layoutParams = ViewGroup.LayoutParams(size, size)
+            setOnClickListener {
+                if (overflowPopup?.isShowing == true) {
+                    overflowPopup?.dismiss()
+                } else overflowPopup = showHomeOverflowMenu(this, menu,
+                    onAction = { onMenuItemSelected(it) },
+                    onSort = { HailData.changeHomeSort(it); updateCurrentList() })
+            }
+        }
         val searchView = menu.findItem(R.id.action_search).actionView as SearchView
         if (HailData.nineKeySearch) {
             val editText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
@@ -644,7 +654,14 @@ class PagerFragment : MainFragment(), PagerAdapter.OnItemClickListener, PagerAda
         menu.findItem(R.id.action_multiselect).updateIcon()
     }
 
+    override fun onPause() {
+        overflowPopup?.dismiss()
+        super.onPause()
+    }
+
     override fun onDestroyView() {
+        overflowPopup?.dismiss()
+        overflowPopup = null
         activity?.fab?.setOnClickListener(null)
         activity?.fab?.setOnLongClickListener(null)
         pagerAdapter.onDestroy()

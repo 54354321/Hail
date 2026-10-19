@@ -159,4 +159,7 @@
     <string name="app_icon_size">アプリアイコンの大きさ</string>
     <string name="frozen_status">凍結済み</string>
     <string name="unfrozen_status">未凍結</string>
+    <string name="action_more">その他</string>
+    <string name="menu_expanded">展開済み</string>
+    <string name="menu_collapsed">折りたたみ</string>
 </resources>

@@ -17,6 +17,10 @@
     <item android:id="@+id/action_sort_home"
           android:icon="@drawable/ic_outline_sort"
           android:title="@string/sort_by" app:showAsAction="ifRoom"/>
+    <item android:id="@+id/action_home_more"
+          android:title="@string/action_more"
+          android:icon="@drawable/ic_outline_more_vert"
+          app:showAsAction="always"/>
     <group android:id="@+id/group_freeze_current">
         <item
                 android:id="@+id/action_freeze_current"

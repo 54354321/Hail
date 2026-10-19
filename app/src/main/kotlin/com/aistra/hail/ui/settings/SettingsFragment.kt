@@ -299,7 +299,7 @@ class SettingsFragment : MainFragment(), MenuProvider {
                 preference(
                     key = "source_code",
                     title = { Text(text = stringResource(R.string.action_github)) },
-                    summary = { Text(text = "Hail · GPL-3.0") },
+                    summary = { Text(text = "54354321/Hail · graupel") },
                     icon = { Icon(imageVector = Icons.Outlined.Code, contentDescription = null) },
                     onClick = { HUI.openLink(HailData.URL_GITHUB) }
                 )
@@ -317,7 +317,7 @@ class SettingsFragment : MainFragment(), MenuProvider {
         val licenses = resources.openRawResource(R.raw.licenses).bufferedReader().use { it.readText() }
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.action_licenses)
-            .setMessage("Hail (GPL-3.0): ${HailData.URL_GITHUB}\n\n$licenses")
+            .setMessage("Graupel (GPL-3.0): ${HailData.URL_GITHUB}\n\nHail (GPL-3.0): ${HailData.URL_UPSTREAM}\n\n$licenses")
             .setPositiveButton(android.R.string.ok, null)
             .show()
         dialog.findViewById<android.widget.TextView>(android.R.id.message)?.apply {

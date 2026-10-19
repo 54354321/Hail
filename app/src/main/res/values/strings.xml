@@ -171,4 +171,7 @@
     <string name="app_icon_size">App icon size</string>
     <string name="frozen_status">Frozen</string>
     <string name="unfrozen_status">Not frozen</string>
+    <string name="action_more">More</string>
+    <string name="menu_expanded">Expanded</string>
+    <string name="menu_collapsed">Collapsed</string>
 </resources>
